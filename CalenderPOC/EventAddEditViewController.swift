@@ -95,6 +95,9 @@ class EventAddEditViewController: UITableViewController {
     
     @IBAction func doneButtonAction(_ sender: UIBarButtonItem) {
         self.view.endEditing(true)
+        if self.eventData.title.count <= 0 {
+            self.eventData.title = "Untitled"
+        }
         CalendarEvent.saveEvent(event: self.eventData) {
             self.dismiss(animated: true, completion: nil)
         }
