@@ -89,7 +89,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func todayButtonAction(_ sender: UIBarButtonItem) {
-        self.configureUI(true, shouldShowCurrentDate: true)
+        if self.expandedAspectRatio.priority == .defaultHigh {
+            self.configureUI(true, shouldShowCurrentDate: false)
+        } else {
+            self.configureUI(true, shouldShowCurrentDate: true)
+        }
     }
     
     @IBAction func addEventButtonAction(_ sender: UIBarButtonItem) {
@@ -267,6 +271,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // show details
+        guard let date = CalenderManager.sharedmanager.calendar.date(byAdding: .day, value: indexPath.section, to: self.calendarStartDate.date) else {
+            return
+        }
+        if let calendarEvents = self.isEventAvailable(date), calendarEvents.count > 0  {
+            let cell:AgendaCell =  self.agendaTableView.cellForRow(at: indexPath) as! AgendaCell
+            let alert : UIAlertController = UIAlertController(title: cell.eventTitle.text!, message: "" , preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.agendaTableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            self.showEventAddEditScreen(ComputedDate(date: date))
+        }
     }
 }
 

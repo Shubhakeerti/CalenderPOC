@@ -62,7 +62,7 @@ class EventAddEditViewController: UITableViewController {
     }
     
     func updateEventData(_ reload: Bool) {
-        self.eventData = EventDataSetup(title: "", startDate: self.startDate, enddate: self.endDate, isAllDay: self.isAllDay,eventId: self.eventData.eventId)
+        self.eventData = EventDataSetup(title: self.eventData.title, startDate: self.startDate, enddate: self.endDate, isAllDay: self.isAllDay,eventId: self.eventData.eventId)
         if reload {
             self.tableView.reloadData()
         }

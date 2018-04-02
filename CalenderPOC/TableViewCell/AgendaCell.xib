@@ -68,14 +68,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTG-0R-K07">
-                                <rect key="frame" x="110" y="15" width="270" height="18"/>
+                                <rect key="frame" x="110" y="32" width="270" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08u-lQ-VgH">
-                                <rect key="frame" x="110" y="41" width="270" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -84,16 +78,12 @@
                         <constraints>
                             <constraint firstItem="Bi5-ju-Fb9" firstAttribute="top" secondItem="IFz-Go-lGL" secondAttribute="top" id="0GO-VJ-4sL"/>
                             <constraint firstItem="UTG-0R-K07" firstAttribute="leading" secondItem="Bi5-ju-Fb9" secondAttribute="trailing" constant="8" id="ARe-e6-cOK"/>
-                            <constraint firstAttribute="trailing" secondItem="08u-lQ-VgH" secondAttribute="trailing" constant="8" id="Efh-ww-Tb3"/>
-                            <constraint firstItem="UTG-0R-K07" firstAttribute="top" secondItem="Bi5-ju-Fb9" secondAttribute="top" id="JOg-lq-pzS"/>
                             <constraint firstItem="Bi5-ju-Fb9" firstAttribute="bottom" secondItem="MXJ-ky-2G6" secondAttribute="bottom" id="Nem-qs-Nkm"/>
                             <constraint firstItem="hvZ-Gh-Bgq" firstAttribute="leading" secondItem="5Is-qn-zh4" secondAttribute="leading" id="Zdi-ZK-cOo"/>
                             <constraint firstItem="hvZ-Gh-Bgq" firstAttribute="top" secondItem="5Is-qn-zh4" secondAttribute="top" id="c6a-jn-45M"/>
-                            <constraint firstItem="08u-lQ-VgH" firstAttribute="leading" secondItem="Bi5-ju-Fb9" secondAttribute="trailing" constant="8" id="lY0-Sf-BC8"/>
                             <constraint firstAttribute="bottom" secondItem="hvZ-Gh-Bgq" secondAttribute="bottom" id="qBI-ei-1yi"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="08u-lQ-VgH" secondAttribute="bottom" constant="15" id="sPb-8J-hyF"/>
+                            <constraint firstItem="UTG-0R-K07" firstAttribute="centerY" secondItem="5Is-qn-zh4" secondAttribute="centerY" id="uW7-aV-SFs"/>
                             <constraint firstItem="Bi5-ju-Fb9" firstAttribute="leading" secondItem="hvZ-Gh-Bgq" secondAttribute="trailing" constant="8" id="yN5-w1-bCi"/>
-                            <constraint firstItem="08u-lQ-VgH" firstAttribute="top" secondItem="UTG-0R-K07" secondAttribute="bottom" constant="8" id="ysa-aq-UKb"/>
                             <constraint firstAttribute="trailing" secondItem="UTG-0R-K07" secondAttribute="trailing" constant="8" id="zcy-o1-UEp"/>
                         </constraints>
                     </view>
@@ -112,7 +102,6 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="eventContainerView" destination="5Is-qn-zh4" id="cIN-Pe-Go7"/>
-                <outlet property="eventDescription" destination="08u-lQ-VgH" id="P0t-sV-8iQ"/>
                 <outlet property="eventTitle" destination="UTG-0R-K07" id="qT7-w3-CMW"/>
                 <outlet property="fromTime" destination="IFz-Go-lGL" id="k9a-gn-vm7"/>
                 <outlet property="leftView" destination="hvZ-Gh-Bgq" id="pQH-nf-Gum"/>

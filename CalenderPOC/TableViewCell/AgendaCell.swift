@@ -17,7 +17,6 @@ class AgendaCell: UITableViewCell {
     @IBOutlet weak var toTime: UILabel!
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var eventTitle: UILabel!
-    @IBOutlet weak var eventDescription: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,7 +35,6 @@ class AgendaCell: UITableViewCell {
                 toTime.text = CalenderManager.sharedmanager.timeFormat.string(from: eventDataUW.enddate.date)
             }
             eventTitle.text = eventDataUW.title
-            eventDescription.text = ""
         } else {
             eventContainerView.isHidden = true
             noEventsLabel.isHidden = false
