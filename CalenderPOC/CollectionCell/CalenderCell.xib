@@ -51,12 +51,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEK-ym-LdT">
-                                <rect key="frame" x="24" y="38" width="2" height="2"/>
+                                <rect key="frame" x="23" y="36" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="OXY-9y-tve"/>
-                                    <constraint firstAttribute="width" constant="2" id="RYf-MM-WpK"/>
+                                    <constraint firstAttribute="height" constant="4" id="OXY-9y-tve"/>
+                                    <constraint firstAttribute="width" constant="4" id="RYf-MM-WpK"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
