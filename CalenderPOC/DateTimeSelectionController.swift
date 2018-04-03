@@ -40,6 +40,7 @@ class DateTimeSelectionController: UIViewController {
     var endDate: ComputedDate = ComputedDate(date: Date())
     
     var selectionType: SelectionType = .Date
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.selectionType == .Time {
@@ -61,15 +62,9 @@ class DateTimeSelectionController: UIViewController {
             datePicker.addTarget(self, action: #selector(datePickerDateChange), for: .valueChanged)
         }
         self.updateLabel()
-
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
+    //MARK:- UI Configuration Methods
     private func updateLabel() {
         if self.selectionType == .StartDate {
             self.selectedDateLabel.text = self.dateFormatter.string(from: self.startDate.date)
@@ -79,9 +74,12 @@ class DateTimeSelectionController: UIViewController {
             self.selectedDateLabel.text = self.timeFormatter.string(from: self.startDate.date) + " \u{2192} " + self.timeFormatter.string(from: self.endDate.date)
         }
     }
+    
+    //MARK:- Action Methods
     @IBAction func dismissAction(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func doneAction(_ sender: UIBarButtonItem) {
         if self.selectionType == .StartDate {
             self.delegate?.didSelectDate(selectedDate: self.startDate, selectionType: self.selectionType)

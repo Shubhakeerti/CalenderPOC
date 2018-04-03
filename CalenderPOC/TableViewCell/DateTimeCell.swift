@@ -63,7 +63,8 @@ class DateTimeCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    //MARK:- Action Methods
     @IBAction func allDaySwitchAction(_ sender: UISwitch) {
         self.persistanceDataSetup.isAllDay = sender.isOn
         if self.persistanceDataSetup.isAllDay {
@@ -94,6 +95,7 @@ class DateTimeCell: UITableViewCell {
         }
     }
     
+    //MARK:- UI Configuration Methods
     func configureCell(dataSetup: DateTimeCelldataSetup, completionBlock: ((SelectionType?, Bool) -> Void)?) {
         self.persistanceDataSetup = dataSetup
         self.returnCallback = completionBlock

@@ -80,6 +80,7 @@ public class DatabaseManager {
         return childContext
     }()
     
+    // for saving syncronously
     func saveContextSynchronously(_ managedObjectContext: NSManagedObjectContext, completionBlock: ((Bool) -> Void)? = nil) {
         managedObjectContext.performAndWait({ () -> Void in
             if managedObjectContext.hasChanges {
@@ -103,6 +104,7 @@ public class DatabaseManager {
         })
     }
     
+    // for saving asyncronously
     func saveContext(_ managedObjectContext: NSManagedObjectContext, completionBlock: ((Bool) -> Void)? = nil) {
         
         if managedObjectContext.hasChanges {
@@ -116,7 +118,6 @@ public class DatabaseManager {
                     }
                 } catch _ as NSError {
                     // Oops, something went wrong.
-                    // DB Operations failed.
                     completionBlock?(false)
                 }
             }
@@ -150,18 +151,5 @@ public class DatabaseManager {
         if save {
             saveContext(context, completionBlock: nil)
         }
-    }
-    
-    func printStoreInfo() {
-        if let model = mainContext.persistentStoreCoordinator?.managedObjectModel {
-            let entities = model.entities as [NSEntityDescription]
-            for entity in entities {
-                print(entity)
-            }
-        }
-    }
-    
-    static func reInitSharedInstance() {
-        DatabaseManager.sharedInstance = DatabaseManager()
     }
 }

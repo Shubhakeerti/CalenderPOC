@@ -53,6 +53,7 @@ class CalenderManager {
     }
 }
 
+// Custom Date component
 struct ComputedDate {
     var date : Date {
         didSet {

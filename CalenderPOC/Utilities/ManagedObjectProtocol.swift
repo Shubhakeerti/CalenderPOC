@@ -13,8 +13,10 @@ public protocol ManagedObjectProtocol {
 static var managedEntityName: String { get }
 }
 
+// a protocol extention which confirms to NSManagedObject and implements extra Utility methods needed for fetching any entity
 public extension ManagedObjectProtocol where Self: NSManagedObject {
 
+    //To get all the objects of an entity with optional predicate or sortDescriptions
     static func all(withPredicate predicate: NSPredicate? = nil, sortDescription: [NSSortDescriptor]? = nil, mangedObjectContext moc: NSManagedObjectContext) -> [AnyObject]? {
         let request = NSFetchRequest<NSManagedObject>(entityName: managedEntityName)
         request.predicate = predicate
@@ -44,10 +46,12 @@ public extension ManagedObjectProtocol where Self: NSManagedObject {
         return object
     }
 
+    // either finds or create a new one a returns ManagedObject
     static func getUniqueObject(_ predicate: NSPredicate, inMangedObjectContext moc: NSManagedObjectContext) -> NSManagedObject {
         return findUniqueObject(predicate, inMangedObjectContext: moc) ?? self.insert(moc)!
     }
 
+    
     static func getCount(WithPredicate predicate: NSPredicate? = nil, inMangedObjectContext moc: NSManagedObjectContext = DatabaseManager.sharedInstance.mainContext) -> Int {
         let request = NSFetchRequest<NSNumber>(entityName: managedEntityName)
         request.predicate = predicate

@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         self.savedEvents.removeAll()
         self.getSavedEvents()
     }
-    
+    //MARK:- UI Configuration Methods
     func configureUI (_ isInitialLoad: Bool, shouldShowCurrentDate: Bool = false) {
         var dateComponent = isInitialLoad ? self.currentDate.getDateComponent() : self.selecteddate.getDateComponent()
             var dateToScrollIndex : Int = self.getNumberOfdays(startDate: self.calendarStartDate.date, endDate: CalenderManager.sharedmanager.calendar.date(from: dateComponent)!)
@@ -88,55 +88,8 @@ class ViewController: UIViewController {
         self.shouldAdjust = true
     }
     
-    @IBAction func todayButtonAction(_ sender: UIBarButtonItem) {
-        if self.expandedAspectRatio.priority == .defaultHigh {
-            self.configureUI(true, shouldShowCurrentDate: false)
-        } else {
-            self.configureUI(true, shouldShowCurrentDate: true)
-        }
-    }
-    
-    @IBAction func addEventButtonAction(_ sender: UIBarButtonItem) {
-        self.showEventAddEditScreen(self.selecteddate)
-    }
-    
-    func showEventAddEditScreen(_ date: ComputedDate) {
-        let eventAddEditNav: UINavigationController = StoryboardHelper.eventAddEditViewController() as! UINavigationController
-        let eventAddEdit: EventAddEditViewController = eventAddEditNav.viewControllers[0] as! EventAddEditViewController
-        eventAddEdit.isAllDay = true
-        eventAddEdit.selectedDate = date
-        eventAddEdit.isNewEvent = true
-        self.present(eventAddEditNav, animated: true, completion: nil)        
-    }
-    
-    
-    
     func setNavigationTitle() {
         self.title = CalenderManager.sharedmanager.fullMonthWithYearDateFormat.string(from: self.selecteddate.date)
-    }
-    
-    func getNumberOfdays(startDate: Date, endDate: Date) -> Int {
-        let calendar = Calendar.current
-        guard let start = calendar.ordinality(of: .day, in: .era, for: startDate) else {
-            return -1
-        }
-        guard let end = calendar.ordinality(of: .day, in: .era, for: endDate) else {
-            return -1
-        }
-        return end - start
-    }
-    func createWeekDaySetupArray() {
-        self.weekDayArray.removeAll()
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEEE"
-        for index in 0...6 {
-            var date: ComputedDate = ComputedDate(date: CalenderManager.sharedmanager.calendar.date(byAdding: .day, value: index, to: self.calendarStartDate.date) ?? Date())
-            var dataSetup: WeekdayDataSetup = WeekdayDataSetup(date: date.date, weekTitle:dateFormatter.string(from: date.date))
-            if date.getDateComponent().weekday == self.currentDate.getDateComponent().weekday {
-                dataSetup.isSelected = true
-            }
-            self.weekDayArray.append(dataSetup)
-        }
     }
     
     func shouldScrollCollection(animated: Bool, indexPath: IndexPath?) {
@@ -162,6 +115,54 @@ class ViewController: UIViewController {
     
     func shouldScrollTableView(indexPath: IndexPath, animated: Bool) {
         self.agendaTableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+    }
+    
+    //MARK:- Action Methods
+    @IBAction func todayButtonAction(_ sender: UIBarButtonItem) {
+        if self.expandedAspectRatio.priority == .defaultHigh {
+            self.configureUI(true, shouldShowCurrentDate: false)
+        } else {
+            self.configureUI(true, shouldShowCurrentDate: true)
+        }
+    }
+    
+    @IBAction func addEventButtonAction(_ sender: UIBarButtonItem) {
+        self.showEventAddEditScreen(self.selecteddate)
+    }
+    
+    func showEventAddEditScreen(_ date: ComputedDate) {
+        let eventAddEditNav: UINavigationController = StoryboardHelper.eventAddEditViewController() as! UINavigationController
+        let eventAddEdit: EventAddEditViewController = eventAddEditNav.viewControllers[0] as! EventAddEditViewController
+        eventAddEdit.isAllDay = true
+        eventAddEdit.selectedDate = date
+        eventAddEdit.isNewEvent = true
+        self.present(eventAddEditNav, animated: true, completion: nil)        
+    }
+    
+    //MARK:- Utility Methods
+    func getNumberOfdays(startDate: Date, endDate: Date) -> Int {
+        let calendar = Calendar.current
+        guard let start = calendar.ordinality(of: .day, in: .era, for: startDate) else {
+            return -1
+        }
+        guard let end = calendar.ordinality(of: .day, in: .era, for: endDate) else {
+            return -1
+        }
+        return end - start
+    }
+    
+    func createWeekDaySetupArray() {
+        self.weekDayArray.removeAll()
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEEE"
+        for index in 0...6 {
+            var date: ComputedDate = ComputedDate(date: CalenderManager.sharedmanager.calendar.date(byAdding: .day, value: index, to: self.calendarStartDate.date) ?? Date())
+            var dataSetup: WeekdayDataSetup = WeekdayDataSetup(date: date.date, weekTitle:dateFormatter.string(from: date.date))
+            if date.getDateComponent().weekday == self.currentDate.getDateComponent().weekday {
+                dataSetup.isSelected = true
+            }
+            self.weekDayArray.append(dataSetup)
+        }
     }
     
     func getSavedEvents() {
@@ -233,15 +234,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
-        headerView.backgroundColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+        let view: UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
+        view.backgroundColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+
+        let headerView = UILabel(frame: CGRect(x: 8, y: 2, width: tableView.frame.size.width, height: 20))
         var computedDate: ComputedDate = ComputedDate(date: Calendar.current.date(byAdding: .day, value: section, to: self.calendarStartDate.date)!)
         let day = self.headerDateFormatter.string(from: computedDate.date)
         headerView.text = day
         if computedDate.getDateComponent() == self.currentDate.getDateComponent() {
             headerView.text = headerView.text! + ", " + "Today"
         }
-        return headerView
+        view.addSubview(headerView)
+        return view
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
