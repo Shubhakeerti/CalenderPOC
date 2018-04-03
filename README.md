@@ -1,6 +1,6 @@
 # CalenderPOC
-Calendar to add and update events
 
+Hi,
 The Application helps you in adding and managing Events.
 
 Features Implemented
@@ -20,3 +20,4 @@ Features Implemented
 	7. Smooth Animation
 
 A short demo video on how the application works: https://goo.gl/nfdaTT
+
